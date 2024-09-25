@@ -1,9 +1,9 @@
 // If no number is given it will be assumed to be one unit
 function numberStringSplitter(input) {
-  let number = input.match(/[.\d\/]+/g)[0] || "1"
+  let number = input.match(/[.\d\/]+/g) || "1"
   let string = input.match(/[a-zA-Z]+/g)[0]
 
-  return { number, string }
+  return [ number[0], string ]
 }
 
 // If there's more than one / in the input this will return false
@@ -18,7 +18,7 @@ function checkDiv(possibleFraction) {
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result = numberStringSplitter(input).number;
+    let result = numberStringSplitter(input)[0];
     let nums = checkDiv(result);
     if (!nums) {
       return undefined;
@@ -35,7 +35,7 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(input) {
-    let unit = numberStringSplitter(input).string.toLowerCase();
+    let unit = numberStringSplitter(input)[1].toLowerCase();
     switch (unit) {
       case "km":
         return "km";
